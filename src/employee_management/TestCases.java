@@ -10,19 +10,27 @@ public class TestCases {
     }
 
     public static void main(String[] args) {
-        FullTimeEmployee koto = TestCases.fullTimeEmployeeKoto();
-        PartTimeEmployee lita = TestCases.partTimeEmployeeLita();
+        FullTimeEmployee koto = fullTimeEmployeeKoto();
+        PartTimeEmployee lita = partTimeEmployeeLita();
 
-        // TODO : prevent the direct access here
-        koto.monthlySalary = 6_000_000;
-        lita.hoursWorked = 1_000;
+        // On ne peut plus faire de modification directe
+        try {
+            lita.setHourlyRate(-10_000_000); // Va lancer une exception
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erreur: " + e.getMessage());
+        }
 
-        // TODO : do not allow incoherent changes on salaries (applies to full time employees too)
-        lita.hourlyRate = -10_000_000;
+        // Affichage toString (pas d’info sensible)
+        System.out.println("Details about Koto : " + koto);
+        System.out.println("Details about Lita : " + lita);
 
-        // TODO : fix the string format of both full time and part time employees
-        // NOTE : do not show sensitive data such as hourlyRate or monthlySalary here !
-        System.out.println("Details about Koto " + koto);
-        System.out.println("Details about Lita " + lita);
+        // Création d’un département
+        Department devDept = new Department("Département Développement");
+        devDept.addEmployee(koto);
+        devDept.addEmployee(lita);
+
+        // Affichage RH
+        System.out.println("\n📄 Infos RH:");
+        devDept.showDetailsForHR();
     }
 }

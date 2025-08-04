@@ -1,15 +1,40 @@
 package employee_management;
 
-/**
- * TODO : a department is a collection of employees. It has a name and a set of employees in it.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class Department {
-    /**
-     * TODO : Employees should never ever be duplicated in a single department.
-     * Please check if it already exists in the department before inserting if need be. Duplicate
-     * here means : their employee id and name are the same.
-     *
-     * TODO : for our HR officer, give a function to show all details about employees, including
-     * their pay.
-     */
+    private final String name;
+    private List<Employee> employees = new ArrayList<>();
+
+    public Department(String name, List<Employee> employees) {
+        this.name = name;
+        this.employees = employees;
+    }
+
+    public Department(String name) {
+        this.name = name;
+    } 
+
+    public String getName() {
+        return name;
+    }
+
+    public void addEmployee(Employee employee) {
+        if (!employees.contains(employee)) {
+            employees.add(employee);
+        }
+    }
+
+    public void showEmployeeDetails() {
+        for (Employee emp : employees) {
+            System.out.println(emp);
+        }
+    }
+
+    public void showDetailsForHR() {
+        for (Employee emp : employees) {
+            System.out.println(emp.getDetailsForHR());
+        }
+    }
 }
